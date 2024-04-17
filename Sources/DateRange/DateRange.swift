@@ -64,13 +64,13 @@ public struct DateRange {
 
 // MARK: - DateRangeValue
 
-public enum DateRangeValue {
-  case lastSevenDays
-  case lastThirtyDays
-  case lastNinetyDays
-  case lastMonth
-  case thisMonth
-  case lastWeek
+public enum DateRangeValue: String, CaseIterable {
+  case lastSevenDays = "Last 7 Days"
+  case lastThirtyDays = "Last 30 Days"
+  case lastNinetyDays = "Last 90 Days"
+  case lastMonth = "Last Month"
+  case thisMonth = "This Month"
+  case lastWeek = "Last Week"
 }
 
 extension Calendar {
