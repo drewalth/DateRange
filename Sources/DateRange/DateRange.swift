@@ -4,6 +4,7 @@ import Foundation
 
 // MARK: - DateRange
 
+/// A utility for creating date ranges.
 public struct DateRange {
 
   // MARK: Lifecycle
@@ -12,6 +13,12 @@ public struct DateRange {
 
   // MARK: Public
 
+  /// Creates a date range for the specified range.
+  /// - Parameters:
+  ///  - range: The range to create a date range for.
+  ///  - now: The current date.
+  ///  - Throws: `DateRangeError`
+  ///  - Returns: A tuple containing the start and end dates of the range.
   public func createDateRange(for range: DateRangeValue, now: Date = Date.now) throws -> (start: Date, end: Date) {
     let calendar = Calendar.current
 
@@ -48,6 +55,7 @@ public struct DateRange {
     }
   }
 
+  /// Determines if a date is within the specified range.
   public func dateIsWithinRange(_ date: Date, range: (start: Date, end: Date)) -> Bool {
     date >= range.start && date <= range.end
   }
