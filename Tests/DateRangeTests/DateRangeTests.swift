@@ -47,15 +47,20 @@ final class DateRangeTests: XCTestCase {
   func testDateIsWithinRange_outOfRange() throws {
     let dateRange = DateRange()
     let date = fixedDate!
-    let testRange = try dateRange.createDateRange(for: .lastWeek, now: fixedDate)
-    XCTAssertFalse(dateRange.dateIsWithinRange(date, range: testRange))
+
+    let testRange: DateRange.WithinRangeProvided = .custom((
+      start: fixedDate.addingTimeInterval(-1000),
+      end: fixedDate.addingTimeInterval(-500)))
+
+    XCTAssertFalse(try dateRange.dateIsWithinRange(date, range: testRange))
   }
 
   func testDateIsWithinRange_inRange() throws {
     let dateRange = DateRange()
     let date = fixedDate!
-    let testRange = try dateRange.createDateRange(for: .thisMonth, now: fixedDate)
-    XCTAssertTrue(dateRange.dateIsWithinRange(date, range: testRange))
+    let testRange: DateRange.WithinRangeProvided = .predefined(.lastMonth)
+
+    XCTAssertFalse(try dateRange.dateIsWithinRange(date, range: testRange))
   }
 
   func testTodayRange() throws {

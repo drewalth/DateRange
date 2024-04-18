@@ -13,6 +13,11 @@ public struct DateRange {
 
   // MARK: Public
 
+  public enum WithinRangeProvided {
+    case custom((start: Date, end: Date))
+    case predefined(DateRangeValue)
+  }
+
   /// Creates a date range for the specified range.
   /// - Parameters:
   ///  - range: The range to create a date range for.
@@ -62,8 +67,14 @@ public struct DateRange {
   }
 
   /// Determines if a date is within the specified range.
-  public func dateIsWithinRange(_ date: Date, range: (start: Date, end: Date)) -> Bool {
-    date >= range.start && date <= range.end
+  public func dateIsWithinRange(_ date: Date, range: WithinRangeProvided) throws -> Bool {
+    switch range {
+    case .custom(let dates):
+      return date >= dates.start && date <= dates.end
+    case .predefined(let value):
+      let (start, end) = try createDateRange(for: value)
+      return date >= start && date <= end
+    }
   }
 
 }
