@@ -58,4 +58,12 @@ final class DateRangeTests: XCTestCase {
     XCTAssertTrue(dateRange.dateIsWithinRange(date, range: testRange))
   }
 
+  func testTodayRange() throws {
+    let dateRange = DateRange()
+    let (start, end) = try dateRange.createDateRange(for: .today, now: fixedDate)
+
+    XCTAssertEqual(start.formatted(), "1/1/2021, 12:00 AM")
+    XCTAssertEqual(end.formatted(), "1/1/2021, 11:59 PM")
+  }
+
 }

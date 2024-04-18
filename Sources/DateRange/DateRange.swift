@@ -23,6 +23,12 @@ public struct DateRange {
     let calendar = Calendar.current
 
     switch range {
+    case .today:
+      let start = calendar.startOfDay(for: now)
+      let end = try calendar.endOfDay(for: now)
+      return (start, end)
+
+
     case .lastSevenDays:
       guard let start = calendar.date(byAdding: .day, value: -7, to: now) else {
         throw DateRangeError.failedToCreateDateRangeForLastSevenDays
@@ -65,6 +71,7 @@ public struct DateRange {
 // MARK: - DateRangeValue
 
 public enum DateRangeValue: String, CaseIterable {
+  case today = "Today"
   case lastSevenDays = "Last 7 Days"
   case lastThirtyDays = "Last 30 Days"
   case lastNinetyDays = "Last 90 Days"
@@ -74,13 +81,6 @@ public enum DateRangeValue: String, CaseIterable {
 }
 
 extension Calendar {
-  public func startOfDay(for date: Date) throws -> Date {
-    guard let value = self.date(bySettingHour: 0, minute: 0, second: 0, of: date) else {
-      throw DateRangeError.failedToGetStartOfDay
-    }
-    return value
-  }
-
   public func endOfDay(for date: Date) throws -> Date {
     guard let value = self.date(bySettingHour: 23, minute: 59, second: 59, of: date) else {
       throw DateRangeError.failedToGetEndOfDay
