@@ -24,7 +24,7 @@ public struct DateRange {
   ///  - now: The current date.
   ///  - Throws: `DateRangeError`
   ///  - Returns: A tuple containing the start and end dates of the range.
-  public func createDateRange(for range: DateRangeValue, now: Date = Date.now) throws -> (start: Date, end: Date) {
+  public static func createDateRange(for range: DateRangeValue, now: Date = Date.now) throws -> (start: Date, end: Date) {
     let calendar = Calendar.current
 
     switch range {
@@ -67,7 +67,7 @@ public struct DateRange {
   }
 
   /// Determines if a date is within the specified range.
-  public func dateIsWithinRange(_ date: Date, range: WithinRangeProvided) throws -> Bool {
+  public static func dateIsWithinRange(_ date: Date, range: WithinRangeProvided) throws -> Bool {
     switch range {
     case .custom(let dates):
       return date >= dates.start && date <= dates.end

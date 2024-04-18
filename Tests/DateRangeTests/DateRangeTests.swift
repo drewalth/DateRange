@@ -21,51 +21,45 @@ final class DateRangeTests: XCTestCase {
 
 
   func testLastMonthRange() throws {
-    let dateRange = DateRange()
-    let (start, end) = try dateRange.createDateRange(for: .lastMonth, now: fixedDate)
+    let (start, end) = try DateRange.createDateRange(for: .lastMonth, now: fixedDate)
 
     XCTAssertEqual(start.formatted(), "12/1/2020, 12:00 AM")
     XCTAssertEqual(end.formatted(), "12/31/2020, 11:59 PM")
   }
 
   func testThisMonthRange() throws {
-    let dateRange = DateRange()
-    let (start, end) = try dateRange.createDateRange(for: .thisMonth, now: fixedDate)
+    let (start, end) = try DateRange.createDateRange(for: .thisMonth, now: fixedDate)
 
     XCTAssertEqual(start.formatted(), "1/1/2021, 12:00 AM")
     XCTAssertEqual(end.formatted(), "1/31/2021, 11:59 PM")
   }
 
   func testLastWeekRange() throws {
-    let dateRange = DateRange()
-    let (start, end) = try dateRange.createDateRange(for: .lastWeek, now: fixedDate)
+    let (start, end) = try DateRange.createDateRange(for: .lastWeek, now: fixedDate)
 
     XCTAssertEqual(start.formatted(), "12/20/2020, 12:00 AM")
     XCTAssertEqual(end.formatted(), "12/26/2020, 11:59 PM")
   }
 
   func testDateIsWithinRange_outOfRange() throws {
-    let dateRange = DateRange()
     let date = fixedDate!
 
     let testRange: DateRange.WithinRangeProvided = .custom((
       start: fixedDate.addingTimeInterval(-1000),
       end: fixedDate.addingTimeInterval(-500)))
 
-    XCTAssertFalse(try dateRange.dateIsWithinRange(date, range: testRange))
+    XCTAssertFalse(try DateRange.dateIsWithinRange(date, range: testRange))
   }
 
   func testDateIsWithinRange_inRange() throws {
-    let dateRange = DateRange()
     let date = fixedDate!
     let testRange: DateRange.WithinRangeProvided = .predefined(.lastMonth)
 
-    XCTAssertFalse(try dateRange.dateIsWithinRange(date, range: testRange))
+    XCTAssertFalse(try DateRange.dateIsWithinRange(date, range: testRange))
   }
 
   func testTodayRange() throws {
-    let dateRange = DateRange()
-    let (start, end) = try dateRange.createDateRange(for: .today, now: fixedDate)
+    let (start, end) = try DateRange.createDateRange(for: .today, now: fixedDate)
 
     XCTAssertEqual(start.formatted(), "1/1/2021, 12:00 AM")
     XCTAssertEqual(end.formatted(), "1/1/2021, 11:59 PM")
